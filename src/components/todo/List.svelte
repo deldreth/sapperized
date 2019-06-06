@@ -1,36 +1,13 @@
 <script>
     import { items } from './store';
-    import Button from '../Button.svelte';
-
-    $: if ($items) {
-        console.log(`Number of list items: ${$items.length}`);
-    }
-
-    let label = '';
-
-    function handleAddItem () {
-        items.add({ id: $items.length + 1, label });
-        label = '';
-    }
+    import Input from './Input.svelte';
+    import Item from './Item.svelte';
 </script>
 
-<input
-    type="text"
-    value={label}
-    on:keyup={(event) => {
-        label = event.target.value;
+<Input/>
 
-        if (event.code === 'Enter' && label !== '') {
-            handleAddItem();
-        }
-    }}/>
-
-{#if label !== ''}
-    <Button on:click={handleAddItem}>
-        Add Task
-    </Button>
-{/if}
-
+<ul>
 {#each $items as { id, label }, i}
-    <div>{label}</div>
+    <Item id={id}>{label}</Item>
 {/each}
+</ul>
